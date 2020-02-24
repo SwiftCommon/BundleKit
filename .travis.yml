@@ -9,13 +9,13 @@ env:
 branches:
   only:
     - master
-install: make setup
-script: make cibuild BUILD_TYPE=release
+install:
+  - make setup
+script:
+  - make cibuild BUILD_TYPE=release
 after_success:
   # Run codecov
-  - if [ "$FASTLANE_LANE" == "code_coverage" ]; then
-     bash <(curl -s https://codecov.io/bash) -J 'BundleKit';
-    fi
+  - bash <(curl -s https://codecov.io/bash) -J 'BundleKit';
 after_failure:
  - cat -n ~/Library/Logs/scan/*
  - cat -n $TMPDIR/com.apple.dt.XCTest-status/Session*.log
