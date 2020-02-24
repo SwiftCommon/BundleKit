@@ -1,0 +1,25 @@
+language: objective-c
+osx_image: xcode11
+sudo: false
+env:
+  global:
+  - LC_CTYPE=en_US.UTF-8
+  - LANG=en_US.UTF-8
+  - LANGUAGE=en_US.UTF-8
+branches:
+  only:
+    - master
+matrix:
+  include:
+    - osx_image: xcode11
+install: make setup
+script: make cibuild BUILD_TYPE=release
+after_success:
+  # Run codecov
+  - if [ "$FASTLANE_LANE" == "code_coverage" ]; then
+     bash <(curl -s https://codecov.io/bash) -J 'BundleKit';
+    fi
+after_failure:
+ - cat -n ~/Library/Logs/scan/*
+ - cat -n $TMPDIR/com.apple.dt.XCTest-status/Session*.log
+ - cat -n ~/Library/Logs/DiagnosticReports/xctest*.crash
