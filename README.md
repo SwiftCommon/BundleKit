@@ -1,7 +1,7 @@
 # Bundle extensions for Apple's Foundation Bundle
 
 ![Swift 5.0+](https://img.shields.io/badge/Swift-5.0+-orange.svg)
-[![license](https://img.shields.io/github/license/SwiftCommon/BundleKit.svg)](https://github.com/SwiftCommon/BundleKit/LICENSE)
+[![license](https://img.shields.io/github/license/SwiftCommon/BundleKit.svg)](https://github.com/SwiftCommon/BundleKit/blob/master/LICENSE)
 [![Build Status](https://travis-ci.org/SwiftCommon/BundleKit.svg?branch=master)](https://travis-ci.org/SwiftCommon/BundleKit)
 [![codecov](https://codecov.io/gh/SwiftCommon/BundleKit/branch/master/graph/badge.svg)](https://codecov.io/gh/SwiftCommon/BundleKit)
 
@@ -24,7 +24,7 @@ Features
 ```
 
 Installation
------------- 
+------------
 
 ### Swift PM
 
