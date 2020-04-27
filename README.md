@@ -19,7 +19,7 @@ Features
 ### Load and parse a JSON resource from a Bundle
 
 ```swift
-    let bundle = Bundle(url: bundleUrl)
+    let bundle = Bundle.main.bundleFromResources(name: "BundleName[.bundle]")
     let json = bundle?.decode(ObjectType.self, from: "file.json")
 ```
 
