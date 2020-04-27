@@ -2,7 +2,7 @@
 import Foundation
 import XCTest
 
-final class BundleExtJSONTests: XCTestCase {
+final class BundleExtJSONTest: XCTestCase {
     struct TestJson: Decodable, Equatable {
         let key: String
     }
@@ -16,7 +16,7 @@ final class BundleExtJSONTests: XCTestCase {
         let bundle = Bundle(url: bundleUrl)
 
         let expected = TestJson(key: "value")
-        XCTAssertEqual(expected, bundle?.decode(TestJson.self, from: "test.json"))
+        XCTAssertEqual(expected, try? bundle?.decode(TestJson.self, from: "test.json"))
     }
 
     static var allTests = [
