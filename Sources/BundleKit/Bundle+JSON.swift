@@ -8,19 +8,20 @@ extension Bundle {
     ///   - file: the resource filename inside the bundle
     ///   - dateDecodingStrategy: the date decoding strategy. Default: `.deferredToDate`
     ///   - keyDecodingStrategy: the key decoding strategy. Default: `.useDefaultKeys`
+    /// - Throws: Bundle.Error
     /// - Returns: the JSON parsed structure or fails with fatalError if the resource is malformed
     ///             or not found in the bundle
     public func decode<T: Decodable>(
         _ type: T.Type, from file: String,
         dateDecodingStrategy: JSONDecoder.DateDecodingStrategy = .deferredToDate,
         keyDecodingStrategy: JSONDecoder.KeyDecodingStrategy = .useDefaultKeys
-    ) -> T {
+    ) throws -> T {
         guard let url = self.url(forResource: file, withExtension: nil) else {
-            fatalError("Failed to locate \(file) in bundle.")
+            throw Bundle.Error.resourceNotFound(bundle: self, file: file)
         }
 
         guard let data = try? Data(contentsOf: url) else {
-            fatalError("Failed to load \(file) from bundle.")
+            throw Bundle.Error.couldNotReadDataFrom(bundle: self, file: file)
         }
 
         let decoder = JSONDecoder()
@@ -29,22 +30,12 @@ extension Bundle {
 
         do {
             return try decoder.decode(T.self, from: data)
-        } catch DecodingError.keyNotFound(let key, let context) {
-            fatalError("""
-                       Failed to decode \(file) from bundle due to missing key '\(key.stringValue)' not found –
-                        \(context.debugDescription)
-                       """)
-        } catch DecodingError.typeMismatch(_, let context) {
-            fatalError("Failed to decode \(file) from bundle due to type mismatch – \(context.debugDescription)")
-        } catch DecodingError.valueNotFound(let type, let context) {
-            fatalError("""
-                       Failed to decode \(file) from bundle due to missing \(type) value –
-                        \(context.debugDescription)
-                       """)
-        } catch DecodingError.dataCorrupted(_) {
-            fatalError("Failed to decode \(file) from bundle because it appears to be invalid JSON")
         } catch {
-            fatalError("Failed to decode \(file) from bundle: \(error.localizedDescription)")
+            if let error = error as? DecodingError {
+                throw Bundle.Error.jsonDecoding(error: error)
+            } else {
+                throw Bundle.Error.other(error: error)
+            }
         }
     }
 }
