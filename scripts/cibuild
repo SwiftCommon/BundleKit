@@ -3,11 +3,14 @@
 # scripts/cibuild: Setup environment for CI to run tests. This is primarily
 #                 designed to run on the continuous integration server.
 
-BUILD_TYPE=${1-Release}
-
 set -ev
 
+BUILD_TYPE=${1-Release}
+
 cd "$(dirname "$0")/.."
+
+BASH_PROFILE='.bash_profile'
+[ -f "${BASH_PROFILE}" ] && source ${BASH_PROFILE}
 
 echo "CI started at…"
 date "+%H:%M:%S"
