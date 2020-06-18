@@ -9,10 +9,10 @@ env:
 branches:
   only:
     - master
-install:
+before_script:
   - make setup
 script:
-  - make cibuild BUILD_TYPE=release
+  - make cibuild
 after_success:
   # Run codecov
   - bash <(curl -s https://codecov.io/bash) -J 'BundleKit';

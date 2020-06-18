@@ -7,3 +7,5 @@ set -ev
 cd "$(dirname "$0")/.."
 
 scripts/setup
+
+swift package update

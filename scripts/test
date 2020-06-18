@@ -11,5 +11,4 @@ cd "$(dirname "$0")/.."
 
 echo "==> Running tests…"
 
-MACOSX_DEPLOYMENT_TARGET=${1-'x86_64-apple-macosx10.12'}
-swift test -Xswiftc "-target" -Xswiftc "${MACOSX_DEPLOYMENT_TARGET}"
+swift test --enable-code-coverage
