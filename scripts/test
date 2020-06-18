@@ -12,3 +12,7 @@ cd "$(dirname "$0")/.."
 echo "==> Running tests…"
 
 swift test --enable-code-coverage
+
+# Export coverage report for codecov.io
+llvm-cov show .build/x86_64-apple-macosx/debug/BundleKitPackageTests.xctest/Contents/MacOS/BundleKitPackageTests \
+  -instr-profile=.build/x86_64-apple-macosx/debug/codecov/default.profdata  > coverage.txt
