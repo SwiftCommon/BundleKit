@@ -30,7 +30,7 @@ function setup_mason() {
   local mason_release=${2}
   mkdir -p ${mason_dir}
   curl -sSfL https://github.com/mapbox/mason/archive/${mason_release}.tar.gz | tar --gunzip --extract --strip-components=1 --directory=${mason_dir}
-  echo "export PATH=${mason_dir}:${install_dir}/mason_packages/.link/bin:"'${PATH}' >> ${BASH_PROFILE}
+  echo "export PATH=${mason_dir}:${install_dir}/mason_packages/.link/bin:"'${PATH}' > ${BASH_PROFILE}
 }
 hash mason 2>/dev/null  || {
   echo "==> Installing MASON…"
@@ -53,12 +53,4 @@ hash llvm-cov 2>/dev/null  || {
 hash swiftlint 2>/dev/null  || {
   echo "==> Installing swiftlint…"
   brew install swiftlint
-}
-
-#
-# xcodegen
-#
-hash xcodegen 2>/dev/null  || {
-  echo "==> Installing xcodegen…"
-  brew install xcodegen
 }
